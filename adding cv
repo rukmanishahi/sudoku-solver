@@ -1,0 +1,21 @@
+import cv2
+import numpy as np
+
+# creates array w zeroes
+image = np.zeros((512,512,3), np.uint8)
+
+#green line on image
+cv2.line(image, (0,0), (511,511), (255,0,0), 5)
+
+#red rectangle on image
+cv2.rectangle(image, (384,0), (510,128), (0,0,255), 3)
+
+#blue circle on image
+cv2.circle(image, (447,63), 63, (0,0,255), -1)
+
+#disp image
+cv2.imshow("Image", image)
+
+#close window when key is pressed
+cv2.waitKey(0)
+cv2.destroyAllWindows()
