@@ -10,17 +10,13 @@ from utils.image_utils import (
     overlay_solution,
     draw_status_bar,
     resize_with_aspect,
-    stack_images,
-)
-
+    stack_images,)
 # colours for grid
 COLOR_PINK= (136,  15, 232)   # #E80F88  (BGR)
 COLOR_VIOLET= (204,   6, 248)   # #F806CC  (BGR)
 COLOR_WHITE= (255, 255, 255)
 COLOR_GREEN= ( 80, 220,  80)
 COLOR_RED= ( 60,  60, 220)
-
-
 def main() -> None:
     cap=cv2.VideoCapture(0)
     if not cap.isOpened():
@@ -29,7 +25,6 @@ def main() -> None:
 
     cap.set(cv2.CAP_PROP_FRAME_WIDTH,  1280)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT,  720)
-
     detector= GridDetector()
     extractor= DigitExtractor()
     solver=SudokuSolver()
@@ -48,7 +43,6 @@ def main() -> None:
     print("  Sudoku Solver — OpenCV Edition")
     print("  Press  Q  to quit")
     print("=" * 60)
-
     while True:
         ret, frame= cap.read()
         if not ret:
@@ -68,12 +62,12 @@ def main() -> None:
 
         thresh_vis = None
         if warped is not None:
-            thresh_vis = detector.last_thresh        # exposed by detector
+            thresh_vis= detector.last_thresh        # exposed by detector
 
             #2. Extract digits
-            puzzle, cell_imgs = extractor.extract(warped)
+            puzzle, cell_imgs= extractor.extract(warped)
 
-            puzzle_changed = (last_puzzle is None or
+            puzzle_changed= (last_puzzle is None or
                               not np.array_equal(puzzle, last_puzzle))
 
             if puzzle_changed and puzzle is not None:
@@ -82,10 +76,10 @@ def main() -> None:
                 solve_time = time.time() - t0
 
                 if solution is not None:
-                    solved_grid  = solution
-                    last_puzzle  = puzzle.copy()
-                    last_warp    = warped.copy()
-                    last_corners = corners.copy() if corners is not None else None
+                    solved_grid = solution
+                    last_puzzle= puzzle.copy()
+                    last_warp= warped.copy()
+                    last_corners= corners.copy() if corners is not None else None
 
                     # Print to terminal
                     print("\n" + "─" * 37)
@@ -119,9 +113,9 @@ def main() -> None:
         panel_w= 320
 
         if warped is not None and thresh_vis is not None:
-            warp_small   = resize_with_aspect(warped,    panel_w, panel_w)
-            thresh_small = resize_with_aspect(thresh_vis, panel_w, panel_w)
-            if len(thresh_small.shape) == 2:
+            warp_small= resize_with_aspect(warped,    panel_w, panel_w)
+            thresh_small= resize_with_aspect(thresh_vis, panel_w, panel_w)
+            if len(thresh_small.shape)== 2:
                 thresh_small = cv2.cvtColor(thresh_small, cv2.COLOR_GRAY2BGR)
 
             # pad to same height
@@ -132,7 +126,7 @@ def main() -> None:
                                              cv2.BORDER_CONSTANT, value=0)
                 return img[:target]
 
-            row_h = h // 2
+            row_h= h // 2
             ws= pad_h(warp_small,   row_h)
             ts= pad_h(thresh_small, row_h)
             if len(ws.shape)== 2:
