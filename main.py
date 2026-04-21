@@ -1,6 +1,4 @@
-
 #Run: py -3.14 main.py
-
 import cv2
 import numpy as np
 import sys
