@@ -140,6 +140,12 @@ def main() -> None:
             row_h    = h // 2
             ws       = pad_h(warp_small,   row_h)
             ts       = pad_h(thresh_small, row_h)
+            if len(ws.shape) == 2:
+                ws = cv2.cvtColor(ws, cv2.COLOR_GRAY2BGR)
+            if len(ts.shape) == 2:
+                ts = cv2.cvtColor(ts, cv2.COLOR_GRAY2BGR)
+            side_top = ws
+            side_bot = ts
             side_top = ws
             side_bot = ts
 
